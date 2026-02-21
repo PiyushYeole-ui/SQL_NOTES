@@ -1,0 +1,313 @@
+
+1. SQL – Definition
+
+SQL (Structured Query Language) is used to store, manage, retrieve, and manipulate data in a relational database.
+
+2. SQL Categories
+
+| Category | Meaning             |
+| -------- | ------------------- | 
+| DDL      | Database structure  | 
+| DML      | Data manipulation   | 
+| DCL      | Access control      | 
+| TCL      | Transaction controal|
+| DQL      | Data query          | 
+----------------------------------
+
+
+--Assingment DDL and DML--
+---------------------------
+
+🎯DDL (Data Definition Language)
+
+📌DDL – Definition
+DDL (Data Definition Language) is used to create, modify, and delete database structures such as tables, schemas, indexes, and constraints.
+DDL commands change the structure of the database — not the data inside it.
+
+Main Purpose :-
+
+       To create database objects
+
+       To change structure of existing objects
+
+       To remove/rename objects
+
+       Works on schema, not on data
+
+
+Types of DDL Commands + Definition + SQL Code
+
+1. CREATE
+Definition: Creates a new database object (table, view, schema, etc.)
+
+  ➡️SQL Example (RUNNABLE CODE):
+
+  CREATE TABLE Students (
+      RollNo INT PRIMARY KEY,
+      Name VARCHAR(50),
+      Age INT,
+      City VARCHAR(50)
+  );
+
+
+2. ALTER
+
+Definition: Modifies an existing database object.
+
+  ➡️SQL Example (RUNNABLE CODE):
+
+  ALTER TABLE Students ADD Email VARCHAR(100);
+  ALTER TABLE Students MODIFY Age INT NOT NULL;
+  ALTER TABLE Students DROP COLUMN City;
+
+3. DROP
+
+Definition: Completely deletes a database object.
+
+  ➡️SQL Example (RUNNABLE CODE):
+
+      DROP TABLE Students;
+
+4. TRUNCATE
+
+Definition: Deletes all rows of a table but keeps structure intact
+
+  ➡️SQL Example (RUNNABLE CODE):
+
+   TRUNCATE TABLE Students;
+
+
+5. RENAME
+
+Definition: Changes the name of a database object.
+
+  ➡️SQL Example (RUNNABLE CODE):
+  
+	 RENAME TABLE Students TO College_Students;
+	 
+6. COMMENT (Optional but valid DDL)
+
+Definition: Adds comments/documentation to database objects.
+
+  ️ ➡️SQL Example (RUNNABLE CODE):
+  
+           COMMENT ON TABLE College_Students IS 'Contains student academic records';
+
+
+Key Features :-
+          Mostly auto-commit (once executed, rollback isn’t possible)
+          Affects structure, not individual rows
+          Fast execution since no row-level logs like DML
+
+Summary Table:- 
+------------------------------------------
+| Command  | Work                        | 
+| -------- | --------------------------- |
+| CREATE   | Creates objects             | 
+| ALTER    | Modifies objects            | 
+| DROP     | Deletes objects permanently | 
+| TRUNCATE | Deletes all data only       | 
+| RENAME   | Renames object              | 
+| COMMENT  | Adds description            | 
+------------------------------------------
+
+   ➡️This is proper DDL looks like. Clean. Structural only. No data manipulation
+   
+SQL QUERY 
+
+SHOW DATABASES;
+CREATE DATABASE class1;
+USE class1;
+
+CREATE TABLE students (
+    id INT,
+    name VARCHAR(10)
+);
+
+ALTER TABLE students ADD COLUMN age INT;
+ALTER TABLE students ADD COLUMN DOB VARCHAR(10) AFTER id;
+ALTER TABLE students ADD COLUMN grade VARCHAR(10) FIRST;
+ALTER TABLE students MODIFY DOB DATE;
+ALTER TABLE students DROP COLUMN grade;
+
+ALTER TABLE students RENAME COLUMN id TO std_id;
+RENAME TABLE students TO std;
+
+SELECT * FROM std;
+INSERT INTO std (std_id, name, AGE, DOB)
+VALUES
+      (1, 'Ram', 18, '2007-01-12'),
+      (2, 'Sita', 19, '2006-05-21'),
+      (3, 'raj ' , 20, '2006-04-23');
+	  
+SELECT * FROM std;
+  
+
+TRUNCATE TABLE std;
+DROP TABLE std;
+DROP DATABASE class1;
+
+
+
+OUTPUT:-
+-------------------------------------
+| std_id | name | AGE | DOB        |
+| ------ | ---- | --- | ---------- |
+| 1      | Ram  | 18  | 2007-01-12 |
+| 2      | Sita | 19  | 2006-05-21 |
+| 3      | raj  | 20  | 2006-04-23 |
+--------------------------------------
+
+
+-------------------------------------------------------------------------------------------
+
+  ➡️ Why this is DDL and legit:
+----------------------------------------------------------------------------------------
+| Command              | Structural?                              | DDL?              |
+| -------------------- | ---------------------------------------- | ----------------  |
+| CREATE DATABASE      | Yes                                      | ✔                |
+| CREATE TABLE         | Yes                                      | ✔                |
+| ALTER TABLE          | Yes                                      | ✔                |
+| RENAME TABLE         | Yes                                      | ✔                |
+| DROP TABLE           | Yes                                      | ✔                |
+| TRUNCATE TABLE       | Yes (removes rows but structure remains) | ✔                |
+| DROP DATABASE        | Yes                                      | ✔                |
+----------------------------------------------------------------------------------------
+
+
+                ⬇️ DDL Interview-Style Questions (With Expected Thinking Approach)
+				 
+	QUE.What is DDL and how is it different from DML?
+	→   DDL changes structure, DML changes data.
+		  
+	QUE .Write a query to create a table employee with id (PK), name, salary, and join_date (DATE).  
+	→ Evaluates if you actually know CREATE TABLE syntax.
+	
+	QUE.How do you modify the datatype of an existing column?
+     →  
+	  ALTER TABLE employee MODIFY salary DECIMAL(10,2);
+    
+	QUE. Add a NOT NULL constraint to column name after the table is already created.
+     → 	 ALTER TABLE employee MODIFY name VARCHAR(50) NOT NULL;
+
+    QUE - Rename a table employee to staff_master.
+	  → RENAME TABLE employee TO staff_master;
+	  
+	QUE. Remove a column permanently from a table — and write the exact SQL
+     →  ALTER TABLE staff_master DROP COLUMN join_
+	 ------------------------------------------------------------------------------
+	 
+	 
+	 📌 DML – Data Manipulation Language
+	 Definition:-  DML is the part of SQL used to insert, retrieve, update and delete data stored inside database tables. 
+	 It doesn’t change table structure — only the records
+	 
+	 DML Commands (Types + Definition + SQL Code)
+	 1) SELECT
+        Definition: Used to retrieve/read data from a table
+		➡️SQL Example (RUNNABLE CODE):
+		  
+		  SELECT * FROM employees;
+          SELECT name, salary FROM employees WHERE salary > 30000;
+       
+	  2) INSERT
+        Definition: Used to add new rows/data into a table
+		➡️SQL Example (RUNNABLE CODE):
+		INSERT INTO employees (id, name, salary)
+        VALUES (101, 'Riya', 45000),
+               (102, 'Aman', 52000);
+ 
+      3) UPDATE
+         Definition: Used to modify existing data inside a table.
+		 ➡️SQL Example (RUNNABLE CODE):
+		 
+		 UPDATE employees
+         SET salary = salary + 5000
+         WHERE id = 102;
+		 
+	 4) DELETE
+        Definition: Used to remove records permanently from a table.
+		 ➡️SQL Example (RUNNABLE CODE):
+		 DELETE FROM employees WHERE id = 101;
+
+
+Summary Table:- 
+
+-------------------------------------------------------------------------------------------------------
+| Command    | Definition / Purpose          | Basic SQL Syntax Example                            |
+| ---------- | ----------------------------- | --------------------------------------------------- |
+| **SELECT** | Retrieve/read data from table | `SELECT * FROM students;`                           |
+| **INSERT** | Add new records into table    | `INSERT INTO students (id,name) VALUES (1,'Amit');` |
+| **UPDATE** | Modify existing data          | `UPDATE students SET name='Riya' WHERE id=1;`       |
+| **DELETE** | Remove records permanently    | `DELETE FROM students WHERE id=1;`                  |
+--------------------------------------------------------------------------------------------------------
+
+
+
+   ➡️This is proper DML looks like.
+   SQL QUERY
+
+     SHOW DATABASES ;
+     CREATE DATABASE CLASS2;
+     USE CLASS2;
+
+
+     CREATE TABLE employees (
+       id INT PRIMARY KEY,
+       name VARCHAR(50),
+      salary INT
+     );
+
+     DELETE FROM employees
+     WHERE id = 102;
+     INSERT INTO employees (id, name, salary)
+     VALUES (101, 'Riya', 45000),
+            (102, 'Aman', 52000),
+            (103, 'Neha', 38000);
+
+     SELECT * FROM employees;
+     SELECT name, salary FROM employees WHERE salary > 40000;
+     UPDATE employees
+     SET salary = salary + 5000
+     WHERE id = 103;
+
+✔ Final Snapshot — Zero Confusion
+--------------------------------------
+| Command | What it Does             |
+| ------- | ------------------------ |
+| INSERT  | Adds new rows            |
+| SELECT  | Reads rows               |
+| UPDATE  | Changes existing rows    |
+| DELETE  | Removes rows permanently |
+--------------------------------------
+
+           ⬇️DML Interview-Style Questions (With Expected Thinking Approach)
+		   
+		     1. Difference between UPDATE and ALTER?
+			     UPDATE → modifies row data    
+				 ALTER → modifies table structure
+				 
+		     2. When can DELETE remove entire table data unintentionally?
+			     DELETE FROM employees;  -- no WHERE → table wiped
+			
+			 3. How would you increase salary of only those employees earning < 30000?
+                 UPDATE employees 
+                 SET salary = salary + 3000
+                 WHERE salary < 30000;
+ 
+             4. How do you insert multiple rows in one query
+			    
+				INSERT INTO emp(id, name, dept)
+                VALUES (1,'Amit','HR'),
+                       (2,'Riya','Sales'),
+                       (3,'Rahul','IT');
+              
+			  
+			 5.Write a query to delete employees whose name starts with 'A'. 
+			     DELETE FROM emp WHERE name LIKE 'A%';
+				 
+			 6. How would you copy data from one table to another?	
+                 INSERT INTO emp_backup (id,name,salary)
+                 SELECT id,name,salary FROM emp;
+     			 
+      -------------------------------------------------------------------------------
