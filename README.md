@@ -1,1 +1,1 @@
-# SQL--NOTES
+# SQL-Structured query language
